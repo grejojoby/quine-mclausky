@@ -1,20 +1,15 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-int inputmain();
+int inputMain();
 int decimalToBinary(int );
-int first_stage();
-int inputmain();
-void print_groups();
-
-
-
+int firstStage();
+void printGrps();
 
 int input;
 
 int counter=0;//count the no of ones
 int counter2=0,c1=0,c2=0,c3=0,c4=0; //check if the each bit is same
-
 
 struct node
 {
@@ -93,7 +88,7 @@ int decimalToBinary(int decimalnum)
 
 
 
-int first_stage(struct node *ptr)
+int firstStage(struct node *ptr)
 {	
 		if(ptr->counter==1)
 		{	printf("entered the  %d\n\n",p->counter);
@@ -141,7 +136,7 @@ int first_stage(struct node *ptr)
 
 }
 
-void print_groups()
+void printGrps()
 {
 	printf("\ngroup of 1s\n");
 	display(p1);
@@ -157,7 +152,7 @@ void print_groups()
 
 
 
-int inputmain(int i)
+int inputMain(int i)
 {		
 		int a;
 		printf("enter the minterms %d",i);
@@ -194,12 +189,12 @@ int main()
 		int i;
 		for(i=1;i<=4;i++)
 		{
-		inputmain(i);
+		inputMain(i);
 		printf("\n");
-		first_stage(p);
+		firstStage(p);
 
 		}
-		print_groups();
+		printGrps();
 		printf("%d %d %d %d",c1,c2,c3,c4);
 
 		
