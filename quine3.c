@@ -10,7 +10,7 @@ void displayBinArray();
 
 
 
-int i,j,c,noOfVariables=0,maxBit=0,noOfMinTerms=0;
+int i,j,l,k,c,noOfVariables=0,maxBit=0,noOfMinTerms=0;
 int minTermsDec[15],minTermsBin[15][4],noOfOnes[15];
 
 int totalSizeCalc()
@@ -26,35 +26,39 @@ void inputMinTerms()
 {
 	printf("Enter the minterms to be minimized: \n");
 	int inp=0;    
+	printf("%d",maxBit);
 	for(i=0;i<maxBit;i++)
-	{
-		if(inp==-1 || inp>=maxBit-1)
+	{	
+
+		if(inp == (-1) || inp>=(maxBit-1))
 		{
 			return;
 		}
 		else
-		{
+		{	printf("Loop\t");
 			scanf("%d",&inp);
 			minTermsDec[i] = inp;
 			noOfMinTerms++;	
 		}
-	printf("Loop");
+		printf("\n");
+	
 	}
 }
 void minTermsDectoBin()
-{
+{	 printf("entered dec to bin");
+int temp;
     for(i=0;i<noOfVariables;i++)
     {
 	for(j=0;j<4;j++)
 	{
         	
-        	for(i=0;i<noOfMinTerms;i++)
+        	for(k=0;k<noOfMinTerms;k++)
   		{
-			for(j=noOfMinTerms-1;j>=0;j--)
+			for(l=noOfMinTerms-1;l>=0;l--)
 			{
-				int temp=minTermsDec[i];
-				minTermsBin[i][j]=temp%2;
-				temp/=2;
+				temp=minTermsDec[k];
+				minTermsBin[k][l]=temp%2;
+				temp=temp/2;
 			}
 			
   		}
@@ -88,15 +92,23 @@ void displayBinArray()
 	}
 
 }
+void display()
+{
+	for(j=0;j<noOfMinTerms;j++)
+		{
+			printf("%d\n",minTermsDec[j]);
+		}
+	
+}
 int main()
 {
     printf("Enter the number of variables to be Minimized: ");
     scanf("%d",&noOfVariables);
     maxBit=totalSizeCalc();
-	printf("%d",maxBit);
+	
     inputMinTerms();
-    minTermsDectoBin();
-	displayBinArray();
+ 	minTermsDectoBin();
+	 displayBinArray();	
     
 
     return 0;
