@@ -11,7 +11,7 @@ void displayBinArray();
 
 
 int i,j,l,k,c,noOfVariables=0,maxBit=0,noOfMinTerms=0;
-int minTermsDec[15],minTermsBin[15][4],noOfOnes[15];
+int minTermsDec[16],minTermsBin[16][4],noOfOnes[16];
 
 int totalSizeCalc()
 {
