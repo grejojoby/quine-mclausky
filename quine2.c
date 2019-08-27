@@ -210,8 +210,7 @@ int main()
 	
     inputMinTerms();
  	minTermsDectoBin();
- 	printf("\n the binary array:\n");
-	displayArray(minTermsBin,noOfMinTerms);
+ 	printf("\n\n  **STAGE 1**\n\n");
 	firstStage();
 	printf("\ngroup of 0s\n");
 	displayArray(g0,gzero);
@@ -223,6 +222,7 @@ int main()
 	displayArray(g3,gthree);
 	printf("\ngroup of 4s\n");
 	displayArray(g4,gfour);
+	printf("\n\n  **STAGE 2**\n\n");
 	printf("\n\nComparing Group 0 with 1:\n");
 	hzero = compare(g0,g1,h0,gzero,gone);
 	displayArray(h0,hzero);
@@ -235,6 +235,7 @@ int main()
 	printf("\n\nComparing Group 3 with 4:\n");
 	hthree = compare(g3,g4,h3,gthree,gfour);
 	displayArray(h3,hthree);
+	printf("\n\n    **STAGE 3**\n\n");
 	printf("\n\nComparing Group 0 with 1:\n");
 	izero = compare(h0,h1,i0,hzero,hone);
 	displayArray(i0,izero);
