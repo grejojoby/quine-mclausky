@@ -7,7 +7,7 @@ int totalSizeCalc();
 void minTermsDectoBin();
 int calcNoOfOnes(int[]);
 void displayArray(int [][4],int);
-int compare(int [][4],int [][4],int [][4]);
+int compare(int [][4],int [][4],int [][4],int,int);
 void firstStage();
 void display();
 
@@ -15,10 +15,12 @@ void display();
 
 int i,j,l,k,c,noOfVariables=0,maxBit=0,noOfMinTerms=0;
 int minTermsDec[16],minTermsBin[16][4],noOfOnes[16];
-int g1[16][4],g2[16][4],g3[16][4],g4[16][4];
-int h1[16][4],h2[16][4],h3[16][4];
-int gone=0,gtwo=0,gthree=0,gfour=0;
-int hone=0,htwo=0,hthree=0;
+int g0[14][4],g1[16][4],g2[16][4],g3[16][4],g4[16][4];
+int h0[16][4],h1[16][4],h2[16][4],h3[16][4];
+int i0[16][4],i1[16][4],i2[16][4];
+int gzero=0,gone=0,gtwo=0,gthree=0,gfour=0;
+int hzero=0,hone=0,htwo=0,hthree=0;
+int izero=0,ione=0,itwo=0;
 
 int totalSizeCalc()
 {
@@ -98,6 +100,15 @@ void firstStage()
 {
 for(i=0;i<noOfMinTerms;i++)
 {	
+	if(noOfOnes[i]==0)
+	{	
+
+		for(j=0;j<4;j++)
+		{
+		g0[gzero][j]=minTermsBin[i][j];
+		}
+		gzero++;
+	}
 
 	if(noOfOnes[i]==1)
 	{	
@@ -159,18 +170,20 @@ void displayArray(int a[][4],int n)
 
 }
 
-int compare(int a[][4],int b[][4],int h[][4])
+int compare(int a[][4],int b[][4],int h[][4],int first,int second)
 {
-	int y=0;
-	for(i=0;i<gone;i++)
+	int y=0,t=0;
+while(t!=first)
+{
+	for(i=0;i<second;i++)
 	{
 
 		int flag=0;
 		for(j=0;j<4;j++)
 		{
-			if(a[i][j]==b[i][j])
+			if(a[t][j]==b[i][j])
 			{
-				h[y][j]=a[i][j];
+				h[y][j]=b[i][j];
 			}
 			else
 			{
@@ -182,7 +195,10 @@ int compare(int a[][4],int b[][4],int h[][4])
 		{
 			y++;
 		}
+
 	}
+	t++;
+}
 	return y;
 }
 
@@ -197,6 +213,8 @@ int main()
  	printf("\n the binary array:\n");
 	displayArray(minTermsBin,noOfMinTerms);
 	firstStage();
+	printf("\ngroup of 0s\n");
+	displayArray(g0,gzero);
 	printf("\ngroup of 1s\n");
 	displayArray(g1,gone);
 	printf("\ngroup of 2s\n");
@@ -205,9 +223,27 @@ int main()
 	displayArray(g3,gthree);
 	printf("\ngroup of 4s\n");
 	displayArray(g4,gfour);
-
+	printf("\n\nComparing Group 0 with 1:\n");
+	hzero = compare(g0,g1,h0,gzero,gone);
+	displayArray(h0,hzero);
 	printf("\n\nComparing Group 1 with 2:\n");
-	hone = compare(g1,g2,h1);
+	hone = compare(g1,g2,h1,gone,gtwo);
 	displayArray(h1,hone);
+	printf("\n\nComparing Group 2 with 3:\n");
+	htwo = compare(g2,g3,h2,gtwo,gthree);
+	displayArray(h2,htwo);
+	printf("\n\nComparing Group 3 with 4:\n");
+	hthree = compare(g3,g4,h3,gthree,gfour);
+	displayArray(h3,hthree);
+	printf("\n\nComparing Group 0 with 1:\n");
+	izero = compare(h0,h1,i0,hzero,hone);
+	displayArray(i0,izero);
+	printf("\n\nComparing Group 1 with 2:\n");
+	ione = compare(h1,h2,i1,hone,htwo);
+	displayArray(i1,ione);
+	printf("\n\nComparing Group 2 with 3:\n");
+    itwo = compare(h2,h3,i2,htwo,hthree);
+	displayArray(i2,itwo);
     return 0;
 }
+
