@@ -51,7 +51,7 @@ int h0[16][7],h1[16][7],h2[16][7],h3[16][7];
 int i0[16][9],i1[16][9],i2[16][9];
 int k0[16][13],k1[16][13];
 //int l0[16][13];
-int parityTable[160][16];
+int parityTable[20][24];
 int gzero=0,gone=0,gtwo=0,gthree=0,gfour=0;
 int hzero=0,hone=0,htwo=0,hthree=0;
 int izero=0,ione=0,itwo=0;
@@ -109,11 +109,20 @@ while(t!=first)
 	}
 		if(c==0)
 	{
-	
-		parityTable[parityCnt][0]=a[t][5];
-		parityTable[parityCnt][1]=a[t][6];
-		parityTable[parityCnt][2]=a[t][7];
-		parityTable[parityCnt][3]=a[t][8];
+		
+
+		parityTable[parityCnt][16]=a[t][4];
+		parityTable[parityCnt][17]=a[t][5];
+		parityTable[parityCnt][18]=a[t][6];
+		parityTable[parityCnt][19]=a[t][7];
+		parityTable[parityCnt][23]=a[t][3];
+		parityTable[parityCnt][22]=a[t][2];
+		parityTable[parityCnt][21]=a[t][1];
+		parityTable[parityCnt][20]=a[t][0];
+		parityTable[parityCnt][a[t][7]]=999;
+		parityTable[parityCnt][a[t][6]]=999;
+		parityTable[parityCnt][a[t][5]]=999;
+		parityTable[parityCnt][a[t][4]]=999;
 		parityCnt++;
 	}
 
@@ -167,8 +176,16 @@ while(t!=first)
 	}
 		if(c==0)
 	{
-		parityTable[parityCnt][0]=a[t][4];
-		parityTable[parityCnt][1]=a[t][5];
+		parityTable[parityCnt][16]=a[t][4];
+		parityTable[parityCnt][17]=a[t][5];
+		
+		parityTable[parityCnt][23]=a[t][3];
+		parityTable[parityCnt][22]=a[t][2];
+		parityTable[parityCnt][21]=a[t][1];
+		parityTable[parityCnt][20]=a[t][0];
+		
+		parityTable[parityCnt][a[t][5]]=999;
+		parityTable[parityCnt][a[t][4]]=999;
 		parityCnt++;
 	}
 
@@ -224,7 +241,12 @@ while(t!=first)
 		if(c==0)
 	{
 	
-		parityTable[parityCnt][0]=a[t][4];
+		parityTable[parityCnt][16]=a[t][4];
+		parityTable[parityCnt][23]=a[t][3];
+		parityTable[parityCnt][22]=a[t][2];
+		parityTable[parityCnt][21]=a[t][1];
+		parityTable[parityCnt][20]=a[t][0];
+		parityTable[parityCnt][a[t][4]]=999;
 		parityCnt++;
 	}
 
@@ -632,8 +654,8 @@ int compareSame2(int a[][13], int size)
 }
 void parityInit()
 {
-	for(i=0;i<160;i++)
-		for(j=0;j<16;j++)
+	for(i=0;i<20;i++)
+		for(j=0;j<24;j++)
 			parityTable[i][j]=-1;
 }
 
@@ -646,6 +668,7 @@ void printParityTable()
         for(j=0;j<16;j++)
         {	
         	
+
             printf("%d\t",parityTable[i][j]);
         	
         
