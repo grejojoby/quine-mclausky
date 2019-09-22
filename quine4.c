@@ -30,18 +30,24 @@ int compare2(int [][9],int [][9],int [][13],int,int);
 //int compare3(int [][11],int [][11],int [][13],int,int);
 int compareSame(int [][9],int);
 int compareSame2(int [][13], int);
+int compareSamefinal(int a[][5], int size);
 //int compareSame3(int [][13], int);
 
 void firstStage();
 void display();
 void printParityTable();
 void parityInit();
-int compare11(int a[][7],int b[][7],int h[][7],int first,int,int second);
-int compare12(int a[][5],int b[][5],int h[][5],int first,int ,int second);
-int compare13(int a[][9],int b[][9],int h[][9],int first,int ,int second);
+int paritycheck2(int a[][7],int b[][7],int h[][7],int first,int,int second);
+int paritycheck1(int a[][5],int b[][5],int h[][5],int first,int ,int second);
+int paritycheck3(int a[][9],int b[][9],int h[][9],int first,int ,int second);
 
 int parityCmp1(int a[][5],int b[][5],int size1,int size2);
 int primeCheck();
+int checkForSingle(int column);
+int parityToEqt();
+
+void displayFinal();
+
 
 
 int i,j,l,k,c,noOfVariables=0,maxBit=0,noOfMinTerms=0;
@@ -57,16 +63,81 @@ int hzero=0,hone=0,htwo=0,hthree=0;
 int izero=0,ione=0,itwo=0;
 //int jzero=0;
 int kzero=0,kone=0;
+int final[100][5];
+int finalc=0;
+
 //int lzero=0;
 int parityCnt=0;
 
+int parityToEqt()
+{
+
+	for(j=0;j<16;j++)
+	{	
+		if(checkForSingle(j)!=100)
+		{
+			
+			final[finalc][0]=parityTable[checkForSingle(j)][20];
+			final[finalc][1]=parityTable[checkForSingle(j)][21];
+			final[finalc][2]=parityTable[checkForSingle(j)][22];
+			final[finalc][3]=parityTable[checkForSingle(j)][23];
+			finalc++;
+
+
+		}
+	}
+
+}
+
+int compareSamefinal(int a[][5], int size)
+{
+	for(i = 0; i < size; i++)
+    {
+        for(j = i+1; j < size; )
+        {
+            if((a[j][0] == a[i][0]) && (a[j][1] == a[i][1]) && (a[j][2] == a[i][2]) && (a[j][3] == a[i][3]))
+            {
+                for(k = j; k < size; k++)
+                {
+                    a[k][0] = a[k+1][0];
+                    a[k][1] = a[k+1][1];
+                    a[k][2] = a[k+1][2];
+                    a[k][3] = a[k+1][3];
+
+                }
+                size--;
+            }
+            else
+            {
+                j++;
+            }
+        }
+    }
+    return size;
+}
 
 
 
+int checkForSingle(int column)
+{
+	int patc=0,temp121=0;
+	for(i=0;i<parityCnt;i++)
+	{
+		if(parityTable[i][column]==999)
+		{
+			temp121=i;
+			patc++;
+		}
+	}
+	if(patc==1)
+		return temp121;
+	else 
+		return 100;
+}
 
 
 
-int compare13(int a[][9],int b[][9],int h[][9],int first,int second,int third)
+int paritycheck3(int a[][9],int b[][9],int h[][9],int first,int second,int third)
 {
 	int y=0,t=0;
 while(t!=first)
@@ -115,10 +186,12 @@ while(t!=first)
 		parityTable[parityCnt][17]=a[t][5];
 		parityTable[parityCnt][18]=a[t][6];
 		parityTable[parityCnt][19]=a[t][7];
+
 		parityTable[parityCnt][23]=a[t][3];
 		parityTable[parityCnt][22]=a[t][2];
 		parityTable[parityCnt][21]=a[t][1];
 		parityTable[parityCnt][20]=a[t][0];
+
 		parityTable[parityCnt][a[t][7]]=999;
 		parityTable[parityCnt][a[t][6]]=999;
 		parityTable[parityCnt][a[t][5]]=999;
@@ -133,7 +206,7 @@ while(t!=first)
 }
 
 
-int compare11(int a[][7],int b[][7],int h[][7],int first,int second,int third)
+int paritycheck2(int a[][7],int b[][7],int h[][7],int first,int second,int third)
 {
 	int y=0,t=0;
 while(t!=first)
@@ -178,7 +251,7 @@ while(t!=first)
 	{
 		parityTable[parityCnt][16]=a[t][4];
 		parityTable[parityCnt][17]=a[t][5];
-		
+
 		parityTable[parityCnt][23]=a[t][3];
 		parityTable[parityCnt][22]=a[t][2];
 		parityTable[parityCnt][21]=a[t][1];
@@ -197,7 +270,7 @@ while(t!=first)
 
 
 
-int compare12(int a[][5],int b[][5],int h[][5],int first,int second,int third)
+int paritycheck1(int a[][5],int b[][5],int h[][5],int first,int second,int third)
 {
 	int y=0,t=0;
 while(t!=first)
@@ -388,6 +461,19 @@ void display()
 		{
 			printf("%d\t",noOfOnes[j]);
 		}
+}
+
+void displayFinal()
+{	printf("finalc:%d\n",finalc);
+	for(i=0;i<finalc;i++)
+	{
+	for(j=0;j<4;j++)
+		{
+	
+			printf("%d\t",final[i][j]);
+		}
+			printf("\n");
+	}
 }
 
 void displayArray(int a[][4],int n)
@@ -652,6 +738,7 @@ int compareSame2(int a[][13], int size)
     }
     return size;
 }
+
 void parityInit()
 {
 	for(i=0;i<20;i++)
@@ -665,7 +752,7 @@ void printParityTable()
     for(i=0;i<parityCnt;i++)
     {
     	
-        for(j=0;j<16;j++)
+        for(j=16;j<24;j++)
         {	
         	
 
@@ -760,31 +847,36 @@ int main()
     }
 	
     printf("\n\n Parity Check \n\n");
-	compare12(g0,g1,g1,gzero,gone,gone);
-	compare12(g1,g2,g0,gone,gtwo,gzero);
-	compare12(g2,g3,g1,gtwo,gthree,gone);
-	compare12(g3,g4,g2,gthree,gfour,gtwo);
-	compare12(g4,g3,g3,gfour,gthree,gthree);
+	paritycheck1(g0,g1,g1,gzero,gone,gone);
+	paritycheck1(g1,g2,g0,gone,gtwo,gzero);
+	paritycheck1(g2,g3,g1,gtwo,gthree,gone);
+	paritycheck1(g3,g4,g2,gthree,gfour,gtwo);
+	paritycheck1(g4,g3,g3,gfour,gthree,gthree);
 
 
 
-       compare11(h0,h1,h1,hzero,hone,hone);
-       compare11(h1,h0,h2,hone,hzero,htwo);
-       compare11(h2,h1,h3,htwo,hone,hthree);
-       compare11(h3,h2,h2,hthree,htwo,htwo);
+       paritycheck2(h0,h1,h1,hzero,hone,hone);
+       paritycheck2(h1,h0,h2,hone,hzero,htwo);
+       paritycheck2(h2,h1,h3,htwo,hone,hthree);
+       paritycheck2(h3,h2,h2,hthree,htwo,htwo);
 
 
 
-       compare13(i0,i1,i1,izero,ione,ione);
-       compare13(i1,i0,i2,ione,izero,itwo);
-       compare13(i2,i1,i1,itwo,ione,ione);
+       paritycheck3(i0,i1,i1,izero,ione,ione);
+       paritycheck3(i1,i0,i2,ione,izero,itwo);
+       paritycheck3(i2,i1,i1,itwo,ione,ione);
 
 
 
 
     
+
+    parityToEqt();
     printParityTable();
-    
+ 	finalc=compareSamefinal(final,finalc);
+ 	printf("\n");
+ 	displayFinal();
+
     return 0;
 }
 
