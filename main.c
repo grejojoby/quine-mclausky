@@ -471,7 +471,7 @@ void displayArray1(int a[][5], int n)
 {
 	for (i = 0; i < n; i++)
 	{
-		for (j = 0; j < 5; j++)
+		for (j = 0; j < 4; j++)
 		{
 			printf("%d\t", a[i][j]);
 		}
@@ -483,7 +483,7 @@ void displayArray2(int a[][7], int n)
 {
 	for (i = 0; i < n; i++)
 	{
-		for (j = 0; j < 7; j++)
+		for (j = 0; j < 4; j++)
 		{
 			printf("%d\t", a[i][j]);
 		}
@@ -495,7 +495,7 @@ void displayArray3(int a[][9], int n)
 {
 	for (i = 0; i < n; i++)
 	{
-		for (j = 0; j < 9; j++)
+		for (j = 0; j < 4; j++)
 		{
 			printf("%d\t", a[i][j]);
 		}
@@ -507,7 +507,7 @@ void displayArray4(int a[][13], int n)
 {
 	for (i = 0; i < n; i++)
 	{
-		for (j = 0; j < 13; j++)
+		for (j = 0; j < 4; j++)
 		{
 			printf("%d\t", a[i][j]);
 		}
@@ -713,11 +713,17 @@ void printParityTable()
 	printf("Parity cnt %d\n", parityCnt);
 	for (i = 0; i < parityCnt; i++)
 	{
-
-		for (j = 16; j < 24; j++)
+	    printf("\n P%d : ",i+1);
+		for (j = 16; j < 20; j++)
 		{
-
-			printf("%d\t", parityTable[i][j]);
+            if(parityTable[i][j]==-1)
+                continue;
+			else
+			{
+			    printf(" %d ", parityTable[i][j]);
+			    if(j!=19 && parityTable[i][j+1]!=-1)
+                    printf(",");
+			}
 		}
 
 		printf("\n");
@@ -733,6 +739,7 @@ void eqnGenerator()
             printf(" + ");
         for(j=0;j<4;j++)
         {
+
             if(j==0)
             {
                 if(final[i][j]==0)
@@ -777,42 +784,59 @@ int main()
 	minTermsDectoBin();
 	printf("\n\n  **STAGE 1**\n\n");
 	firstStage();
-	printf("\ngroup of 0s\n");
-	displayArray1(g0, gzero);
-	printf("\ngroup of 1s\n");
-	displayArray1(g1, gone);
-	printf("\ngroup of 2s\n");
-	displayArray1(g2, gtwo);
-	printf("\ngroup of 3s\n");
-	displayArray1(g3, gthree);
-	printf("\ngroup of 4s\n");
-	displayArray1(g4, gfour);
+	if (gzero != 0)
+    {
+        printf("\ngroup of 0s\n");
+        displayArray1(g0, gzero);
+    }
+    if(gone!=0)
+    {
+        printf("\ngroup of 1s\n");
+        displayArray1(g1, gone);
+    }
+    if(gtwo!=0)
+    {
+        printf("\ngroup of 2s\n");
+        displayArray1(g2, gtwo);
+    }
+    if(gthree!=0)
+    {
+        printf("\ngroup of 3s\n");
+        displayArray1(g3, gthree);
+    }
+    if(gfour!=0)
+    {
+        printf("\ngroup of 4s\n");
+        displayArray1(g4, gfour);
+    }
+
 	printf("\n\n  **STAGE 2**\n\n");
-	printf("\n\nComparing Group 0 with 1:\n");
+
 	hzero = compare(g0, g1, h0, gzero, gone);
 	if (hzero != 0)
 	{
-
+        printf("\n\nComparing Group 0 with 1:\n");
 		displayArray2(h0, hzero);
 	}
-	printf("\n\nComparing Group 1 with 2:\n");
+
 	hone = compare(g1, g2, h1, gone, gtwo);
 	if (hone != 0)
 	{
-
+        printf("\n\nComparing Group 1 with 2:\n");
 		displayArray2(h1, hone);
 	}
-	printf("\n\nComparing Group 2 with 3:\n");
+
 	htwo = compare(g2, g3, h2, gtwo, gthree);
 	if (htwo != 0)
 	{
+	    printf("\n\nComparing Group 2 with 3:\n");
 		displayArray2(h2, htwo);
 	}
-	printf("\n\nComparing Group 3 with 4:\n");
+
 	hthree = compare(g3, g4, h3, gthree, gfour);
 	if (hthree != 0)
 	{
-
+        printf("\n\nComparing Group 3 with 4:\n");
 		displayArray2(h3, hthree);
 	}
 	printf("\n\n    **STAGE 3**\n\n");
@@ -862,7 +886,8 @@ int main()
 	printParityTable();
 	finalc = compareSamefinal(final, finalc);
 	printf("\n");
-	displayFinal();
+	//displayFinal();
 	eqnGenerator();
+	printf("\n\n\t\tTHANK YOU FOR USING THIS SOFTWARE....\n\n \tMade By : \n\t\tGrejo Joby and Hayden Cordeiro\n\n");
 	return 0;
 }
