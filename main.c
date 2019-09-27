@@ -1,17 +1,24 @@
 /*
-TODO
+QUINE MC_CLAUSKY METHOD
+TABULAR METHOD
 
-don't print if array empty - condition check before printing
-parity check
-parity table
+The program takes input for the minterms and does grouping for the minterms. 
+The tables are carried forward and hence we received the parity bits.
+The parity bits was used to make the equation.
 
+CREATED BY
+
+GREJO JOBY			SE COMPS	17
+HAYDEN CORDEIRO		SE COMPS 	05
 
 */
 
+//Header Files
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
+//Function Declarations
 int decToBin(int);
 int totalSizeCalc();
 void minTermsDectoBin();
@@ -21,17 +28,12 @@ void displayArray1(int[][5], int);
 void displayArray2(int[][7], int);
 void displayArray3(int[][9], int);
 void displayArray4(int[][13], int);
-//void displayArray5(int [][13],int);
 int compare(int[][5], int[][5], int[][7], int, int);
-
 int compare1(int[][7], int[][7], int[][9], int, int);
 int compare2(int[][9], int[][9], int[][13], int, int);
-//int compare3(int [][11],int [][11],int [][13],int,int);
 int compareSame(int[][9], int);
 int compareSame2(int[][13], int);
 int compareSamefinal(int a[][5], int size);
-//int compareSame3(int [][13], int);
-
 void firstStage();
 void display();
 void printParityTable();
@@ -39,41 +41,35 @@ void parityInit();
 int paritycheck2(int a[][7], int b[][7], int h[][7], int first, int, int second);
 int paritycheck1(int a[][5], int b[][5], int h[][5], int first, int, int second);
 int paritycheck3(int a[][9], int b[][9], int h[][9], int first, int, int second);
-
 int parityCmp1(int a[][5], int b[][5], int size1, int size2);
 int primeCheck();
 int checkForSingle(int column);
 int parityToEqt();
-
 void displayFinal();
 
+//Variable Declarations
 int i, j, l, k, c, noOfVariables = 0, maxBit = 0, noOfMinTerms = 0;
 int minTermsDec[16], minTermsBin[16][5], noOfOnes[16];
 int g0[14][5], g1[16][5], g2[16][5], g3[16][5], g4[16][5];
 int h0[16][7], h1[16][7], h2[16][7], h3[16][7];
 int i0[16][9], i1[16][9], i2[16][9];
 int k0[16][13], k1[16][13];
-//int l0[16][13];
 int parityTable[20][24];
 int gzero = 0, gone = 0, gtwo = 0, gthree = 0, gfour = 0;
 int hzero = 0, hone = 0, htwo = 0, hthree = 0;
 int izero = 0, ione = 0, itwo = 0;
-//int jzero=0;
 int kzero = 0, kone = 0;
 int final[100][5];
 int finalc = 0;
-
-//int lzero=0;
 int parityCnt = 0;
 
-int parityToEqt()
+//Function Definitions
+int parityToEqt()		//Function to generate the parity bits
 {
-
 	for (j = 0; j < 16; j++)
 	{
 		if (checkForSingle(j) != 100)
 		{
-
 			final[finalc][0] = parityTable[checkForSingle(j)][20];
 			final[finalc][1] = parityTable[checkForSingle(j)][21];
 			final[finalc][2] = parityTable[checkForSingle(j)][22];
@@ -83,7 +79,7 @@ int parityToEqt()
 	}
 }
 
-int compareSamefinal(int a[][5], int size)
+int compareSamefinal(int a[][5], int size)	//Function to compare the parity table and final parities for equation
 {
 	for (i = 0; i < size; i++)
 	{
@@ -109,7 +105,7 @@ int compareSamefinal(int a[][5], int size)
 	return size;
 }
 
-int checkForSingle(int column)
+int checkForSingle(int column)		//Function to check for parity that are necessary for equation as they are lone contributers for a minterm
 {
 	int patc = 0, temp121 = 0;
 	for (i = 0; i < parityCnt; i++)
@@ -126,7 +122,7 @@ int checkForSingle(int column)
 		return 100;
 }
 
-int paritycheck3(int a[][9], int b[][9], int h[][9], int first, int second, int third)
+int paritycheck3(int a[][9], int b[][9], int h[][9], int first, int second, int third)		//Function to check parity
 {
 	int y = 0, t = 0;
 	while (t != first)
@@ -145,7 +141,6 @@ int paritycheck3(int a[][9], int b[][9], int h[][9], int first, int second, int 
 			}
 			if (flag == 1)
 			{
-
 				c++;
 				y++;
 			}
@@ -163,14 +158,12 @@ int paritycheck3(int a[][9], int b[][9], int h[][9], int first, int second, int 
 			}
 			if (flag == 1)
 			{
-
 				c++;
 				y++;
 			}
 		}
 		if (c == 0)
 		{
-
 			parityTable[parityCnt][16] = a[t][4];
 			parityTable[parityCnt][17] = a[t][5];
 			parityTable[parityCnt][18] = a[t][6];
@@ -187,12 +180,11 @@ int paritycheck3(int a[][9], int b[][9], int h[][9], int first, int second, int 
 			parityTable[parityCnt][a[t][4]] = 999;
 			parityCnt++;
 		}
-
 		t++;
 	}
 }
 
-int paritycheck2(int a[][7], int b[][7], int h[][7], int first, int second, int third)
+int paritycheck2(int a[][7], int b[][7], int h[][7], int first, int second, int third)		//Function to check parity
 {
 	int y = 0, t = 0;
 	while (t != first)
@@ -200,7 +192,6 @@ int paritycheck2(int a[][7], int b[][7], int h[][7], int first, int second, int 
 		int c = 0;
 		for (i = 0; i < second; i++)
 		{
-
 			int flag = 0;
 			for (j = 0; j < 4; j++)
 			{
@@ -211,7 +202,6 @@ int paritycheck2(int a[][7], int b[][7], int h[][7], int first, int second, int 
 			}
 			if (flag == 1)
 			{
-
 				c++;
 				y++;
 			}
@@ -229,7 +219,6 @@ int paritycheck2(int a[][7], int b[][7], int h[][7], int first, int second, int 
 			}
 			if (flag == 1)
 			{
-
 				c++;
 				y++;
 			}
@@ -248,12 +237,11 @@ int paritycheck2(int a[][7], int b[][7], int h[][7], int first, int second, int 
 			parityTable[parityCnt][a[t][4]] = 999;
 			parityCnt++;
 		}
-
 		t++;
 	}
 }
 
-int paritycheck1(int a[][5], int b[][5], int h[][5], int first, int second, int third)
+int paritycheck1(int a[][5], int b[][5], int h[][5], int first, int second, int third)	//Function to check parity
 {
 	int y = 0, t = 0;
 	while (t != first)
@@ -261,7 +249,6 @@ int paritycheck1(int a[][5], int b[][5], int h[][5], int first, int second, int 
 		int c = 0;
 		for (i = 0; i < second; i++)
 		{
-
 			int flag = 0;
 			for (j = 0; j < 4; j++)
 			{
@@ -272,14 +259,12 @@ int paritycheck1(int a[][5], int b[][5], int h[][5], int first, int second, int 
 			}
 			if (flag == 1)
 			{
-
 				c++;
 				y++;
 			}
 		}
 		for (i = 0; i < third; i++)
 		{
-
 			int flag = 0;
 			for (j = 0; j < 4; j++)
 			{
@@ -290,14 +275,12 @@ int paritycheck1(int a[][5], int b[][5], int h[][5], int first, int second, int 
 			}
 			if (flag == 1)
 			{
-
 				c++;
 				y++;
 			}
 		}
 		if (c == 0)
 		{
-
 			parityTable[parityCnt][16] = a[t][4];
 			parityTable[parityCnt][23] = a[t][3];
 			parityTable[parityCnt][22] = a[t][2];
@@ -306,12 +289,11 @@ int paritycheck1(int a[][5], int b[][5], int h[][5], int first, int second, int 
 			parityTable[parityCnt][a[t][4]] = 999;
 			parityCnt++;
 		}
-
 		t++;
 	}
 }
 
-int totalSizeCalc()
+int totalSizeCalc()				//Function to check the maximum no of minterms possible for the no of variables
 {
 	for (i = 0; i < noOfVariables; i++)
 	{
@@ -320,16 +302,14 @@ int totalSizeCalc()
 	return maxBit + 1;
 }
 
-void inputMinTerms()
+void inputMinTerms()		//Function to input the minterms
 {
 	printf("Enter the minterms to be minimized: \n");
 	int inp = 0;
 	for (i = 0; i < maxBit; i++)
 	{
-
 		if (inp >= (maxBit))
 		{
-
 			return;
 		}
 		if (inp == (-1))
@@ -337,9 +317,8 @@ void inputMinTerms()
 			noOfMinTerms--;
 			return;
 		}
-
 		else
-		{ //printf("enter minterm %d\t",i+1);
+		{ 
 			scanf("%d", &inp);
 			minTermsDec[i] = inp;
 			noOfMinTerms++;
@@ -347,7 +326,7 @@ void inputMinTerms()
 	}
 }
 
-int calcNoOfOnes(int num[])
+int calcNoOfOnes(int num[])		//Function to calculate the no of ones in the minterms binary value
 {
 	int flag = 0;
 	for (i = 0; i < maxBit; i++)
@@ -358,7 +337,7 @@ int calcNoOfOnes(int num[])
 	return flag;
 }
 
-void minTermsDectoBin()
+void minTermsDectoBin()			//Function to convert the minterms in decimal to their binary equivalents
 {
 	int temp;
 	for (i = 0; i <= noOfMinTerms; i++)
@@ -380,24 +359,20 @@ void minTermsDectoBin()
 	}
 }
 
-void firstStage()
+void firstStage()			//Function for first stage comparisons
 {
-
 	for (i = 0; i < noOfMinTerms; i++)
 	{
 		if (noOfOnes[i] == 0)
 		{
-
 			for (j = 0; j < 5; j++)
 			{
 				g0[gzero][j] = minTermsBin[i][j];
 			}
 			gzero++;
 		}
-
 		if (noOfOnes[i] == 1)
 		{
-
 			for (j = 0; j < 5; j++)
 			{
 				g1[gone][j] = minTermsBin[i][j];
@@ -406,7 +381,6 @@ void firstStage()
 		}
 		if (noOfOnes[i] == 2)
 		{
-
 			for (j = 0; j < 5; j++)
 			{
 				g2[gtwo][j] = minTermsBin[i][j];
@@ -415,7 +389,6 @@ void firstStage()
 		}
 		if (noOfOnes[i] == 3)
 		{
-
 			for (j = 0; j < 5; j++)
 			{
 				g3[gthree][j] = minTermsBin[i][j];
@@ -424,7 +397,6 @@ void firstStage()
 		}
 		if (noOfOnes[i] == 4)
 		{
-
 			for (j = 0; j < 5; j++)
 			{
 				g4[gfour][j] = minTermsBin[i][j];
@@ -433,7 +405,7 @@ void firstStage()
 		}
 	}
 }
-void display()
+void display()			//Display function to display the no of ones
 {
 	for (j = 0; j < noOfMinTerms; j++)
 	{
@@ -441,21 +413,20 @@ void display()
 	}
 }
 
-void displayFinal()
+void displayFinal()		//Function to display the final table
 {
 	printf("finalc:%d\n", finalc);
 	for (i = 0; i < finalc; i++)
 	{
 		for (j = 0; j < 4; j++)
 		{
-
 			printf("%d\t", final[i][j]);
 		}
 		printf("\n");
 	}
 }
 
-void displayArray(int a[][4], int n)
+void displayArray(int a[][4], int n)		//Dsiplay Function
 {
 	for (i = 0; i < n; i++)
 	{
@@ -467,7 +438,7 @@ void displayArray(int a[][4], int n)
 	}
 }
 
-void displayArray1(int a[][5], int n)
+void displayArray1(int a[][5], int n)		//Dsiplay Function
 {
 	for (i = 0; i < n; i++)
 	{
@@ -479,7 +450,7 @@ void displayArray1(int a[][5], int n)
 	}
 }
 
-void displayArray2(int a[][7], int n)
+void displayArray2(int a[][7], int n)		//Dsiplay Function
 {
 	for (i = 0; i < n; i++)
 	{
@@ -491,7 +462,7 @@ void displayArray2(int a[][7], int n)
 	}
 }
 
-void displayArray3(int a[][9], int n)
+void displayArray3(int a[][9], int n)		//Dsiplay Function
 {
 	for (i = 0; i < n; i++)
 	{
@@ -503,7 +474,7 @@ void displayArray3(int a[][9], int n)
 	}
 }
 
-void displayArray4(int a[][13], int n)
+void displayArray4(int a[][13], int n)		//Dsiplay Function
 {
 	for (i = 0; i < n; i++)
 	{
@@ -515,7 +486,7 @@ void displayArray4(int a[][13], int n)
 	}
 }
 
-int compare(int a[][5], int b[][5], int h[][7], int first, int second)
+int compare(int a[][5], int b[][5], int h[][7], int first, int second)		//Compare Function
 {
 	int y = 0, t = 0;
 	while (t < first)
@@ -523,7 +494,6 @@ int compare(int a[][5], int b[][5], int h[][7], int first, int second)
 		int c = 0;
 		for (i = 0; i < second; i++)
 		{
-
 			int flag = 0;
 			for (j = 0; j < 4; j++)
 			{
@@ -547,13 +517,12 @@ int compare(int a[][5], int b[][5], int h[][7], int first, int second)
 				c++;
 			}
 		}
-
 		t++;
 	}
 	return y;
 }
 
-int compare1(int a[][7], int b[][7], int h[][9], int first, int second)
+int compare1(int a[][7], int b[][7], int h[][9], int first, int second)		//Compare Function
 {
 	int y = 0, t = 0;
 	while (t != first)
@@ -561,7 +530,6 @@ int compare1(int a[][7], int b[][7], int h[][9], int first, int second)
 		int c = 0;
 		for (i = 0; i < second; i++)
 		{
-
 			int flag = 0;
 			for (j = 0; j < 4; j++)
 			{
@@ -585,20 +553,18 @@ int compare1(int a[][7], int b[][7], int h[][9], int first, int second)
 				y++;
 			}
 		}
-
 		t++;
 	}
 	return y;
 }
 
-int compare2(int a[][9], int b[][9], int h[][13], int first, int second)
+int compare2(int a[][9], int b[][9], int h[][13], int first, int second)		//Compare Function
 {
 	int y = 0, t = 0;
 	while (t != first)
 	{
 		for (i = 0; i < second; i++)
 		{
-
 			int flag = 0;
 			for (j = 0; j < 4; j++)
 			{
@@ -635,7 +601,7 @@ int compare2(int a[][9], int b[][9], int h[][13], int first, int second)
 	return y;
 }
 
-int compareSame(int a[][9], int size)
+int compareSame(int a[][9], int size)		//Compare Function
 {
 	for (i = 0; i < size; i++)
 	{
@@ -666,7 +632,7 @@ int compareSame(int a[][9], int size)
 	return size;
 }
 
-int compareSame2(int a[][13], int size)
+int compareSame2(int a[][13], int size)		//Compare Function
 {
 	for (i = 0; i < size; i++)
 	{
@@ -701,14 +667,14 @@ int compareSame2(int a[][13], int size)
 	return size;
 }
 
-void parityInit()
+void parityInit()		//Function to initialize the parity table
 {
 	for (i = 0; i < 20; i++)
 		for (j = 0; j < 24; j++)
 			parityTable[i][j] = -1;
 }
 
-void printParityTable()
+void printParityTable()		//Function to print the parity table
 {
 	printf("Parity cnt %d\n", parityCnt);
 	for (i = 0; i < parityCnt; i++)
@@ -725,12 +691,11 @@ void printParityTable()
                     printf(",");
 			}
 		}
-
 		printf("\n");
 	}
 }
 
-void eqnGenerator()
+void eqnGenerator()		//Function to generate the equation from the parity
 {
     printf("\n The Equation is : \t");
     for(i=0;i<finalc;i++)
@@ -739,7 +704,6 @@ void eqnGenerator()
             printf(" + ");
         for(j=0;j<4;j++)
         {
-
             if(j==0)
             {
                 if(final[i][j]==0)
@@ -769,9 +733,7 @@ void eqnGenerator()
                     printf("D");
             }
         }
-
     }
-
 }
 
 int main()
