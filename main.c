@@ -6,11 +6,6 @@ The program takes input for the minterms and does grouping for the minterms.
 The tables are carried forward and hence we received the parity bits.
 The parity bits was used to make the equation.
 
-CREATED BY
-
-GREJO JOBY			SE COMPS	17
-HAYDEN CORDEIRO		SE COMPS 	05
-
 */
 
 //Header Files
